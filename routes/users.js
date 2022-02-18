@@ -6,6 +6,6 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-// MDR XD
+// MDR XD DSJAO
 
 module.exports = router;
