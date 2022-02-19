@@ -13,10 +13,12 @@
     "http-errors": "~1.6.3",
     "husky": "^7.0.4",
     "morgan": "~1.9.1",
+    "nyc": "^15.1.0",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-    "husky-git-emoji": "^1.0.1"
+    "husky-git-emoji": "^1.0.1",
+    "validate-branch-name": "^1.2.1"
   },
   "validate-branch-name": {
     "pattern": "^(main|develop|preprod){1}$|^(feature|bugfix|improvement|library|hotfix|refactoring)/[a-z0-9._-]+$",
