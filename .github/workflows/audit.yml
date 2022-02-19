@@ -16,5 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - name: install dependencies
         run: npm install
+
+      - name: Publish the report in the PR
+        uses: tintef/nyc-reporter-action@0.2.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORTER: 'text'
