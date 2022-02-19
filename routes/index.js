@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-
 // EN
 
 module.exports = router;
