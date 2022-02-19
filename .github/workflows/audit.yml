@@ -21,6 +21,11 @@ jobs:
       - name: install dependencies
         run: npm install
 
+      - name: Run tests
+        run: npm run test-ci
+        env:
+          NODE_ENV: dev
+
       - name: Publish the report in the PR
         uses: tintef/nyc-reporter-action@0.2.5
         with:
