@@ -8,6 +8,7 @@
     "test-with-coverage": "nyc --check-coverage --lines 85 --statements 80 npm run test",
     "test-report": "nyc report --reporter=html",
     "test-ci": "nyc --check-coverage --lines 70 --statements 70 -t coverage npm test",
+    "vuln": "npm audit --json | npm-audit-helper",
     "lint": "eslint --fix --ext .js,.jsx .",
     "prepare": "husky install"
   },
@@ -21,7 +22,7 @@
     "morgan": "~1.9.1",
     "nyc": "^15.1.0",
     "prettier": "^2.5.1",
-    "pug": "2.0.0-beta11"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "^8.9.0",
