@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-// EN
+// EN ki
 
 module.exports = router;
