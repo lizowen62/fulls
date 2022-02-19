@@ -6,6 +6,11 @@
     "start": "node ./bin/www",
     "prepare": "husky install"
   },
+  "husky": {
+        "hooks": {
+            "commit-msg": "npx hge-commit"
+        }
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
