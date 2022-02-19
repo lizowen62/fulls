@@ -7,6 +7,6 @@ router.get("/", function (req, res) {
   res.render("index", { title: "Express" });
 });
 
-// EN ki gthy
+// EN ki gthy defr
 
 module.exports = router;

@@ -26,8 +26,10 @@ jobs:
         env:
           NODE_ENV: dev
 
-      - name: Publish the report in the PR
-        uses: tintef/nyc-reporter-action@0.2.5
+      - name: Check NPM vulnerabilities
+        uses: oke-py/npm-audit-action@v1.7.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPORTER: 'text'
+          audit_level: moderate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_labels: vulnerability
+          dedupe_issues: true
