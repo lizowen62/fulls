@@ -1,27 +1,26 @@
-name: npm audit
+name: 'Run tests'
 
 on:
   pull_request:
-  push:
     branches:
-      - main
-      - 'releases/*'
-# on:
-#   schedule:
-#     - cron: '0 10 * * *'
+      - '*'
 
 jobs:
-  scan:
-    name: npm audit
+  run-tests:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: install dependencies
-        run: npm install
-      - uses: oke-py/npm-audit-action@v1.8.4
-        with:
-          audit_level: moderate
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          issue_assignees: oke-py
-          issue_labels: vulnerability,test
-          dedupe_issues: true
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '16'
+        check-latest: true
+    - run: npm install
+
+    - name: Run tests
+      run: npm run test
+
+    - uses: tintef/nyc-reporter-action
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPORTER: 'text' # defaults to 'text-summary'
