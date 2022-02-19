@@ -17,5 +17,9 @@
   },
   "devDependencies": {
     "husky-git-emoji": "^1.0.1"
+  },
+  "validate-branch-name": {
+    "pattern": "^(main|develop|preprod){1}$|^(feature|bugfix|improvement|library|hotfix|refactoring)/[a-z0-9._-]+$",
+    "errorMsg": "Branches must be \"main|develop|preprod\", or be prefixed by \"feature|bugfix|improvement|library|hotfix|refactoring\""
   }
 }
