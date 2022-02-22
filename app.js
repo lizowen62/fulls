@@ -3,13 +3,32 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+var swagger = require("swagger-ui-express");
+var swaggerDoc = require("swagger-jsdoc");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 // CHIEN POULE OEUF CHAT CHIEN jik
 
+const swaggerDefinition = {
+  openapi: "3.0.0",
+  info: {
+    title: "Express API for JSONPlaceholder",
+    version: "1.0.0",
+  },
+};
+
+const options = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ["./routes/*.js"],
+};
+
+const spec = swaggerDoc(options);
+
 var app = express();
+
+app.use("/docs", swagger.serve, swagger.setup(spec));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
