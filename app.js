@@ -9,6 +9,9 @@ var swagger = require("swagger-ui-express");
 var swaggerDoc = require("swagger-jsdoc");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var authRouter = require("./routes/login");
+var noteRouter = require("./routes/note");
+const bodyParser = require("body-parser");
 
 // CHIEN POULE OEUF CHAT CHIEN jik
 
@@ -46,6 +49,11 @@ const spec = swaggerDoc(options);
 
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
 app.use("/docs", swagger.serve, swagger.setup(spec));
 
 console.log(process.env.API_PORT);
@@ -62,6 +70,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
+app.use("/note", noteRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -73,7 +83,6 @@ app.use(function (err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render("error");
