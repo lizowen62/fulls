@@ -1,0 +1,34 @@
+name: coverage
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+# on:
+#   schedule:
+#     - cron: '0 10 * * *'
+
+jobs:
+  scan:
+    name: npm audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # lolf
+      - name: install dependencies
+        run: npm install
+ 
+ 
+      - name: Run tests
+        run: npm run test-ci
+        env:
+          NODE_ENV: dev
+
+      - name: Publish the report in the PR
+        uses: tintef/nyc-reporter-action@0.2.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORTER: 'text'
