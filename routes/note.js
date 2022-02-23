@@ -16,3 +16,5 @@ router.put("/notes/:noteId", notes.update);
 
 // Delete a Note with noteId
 router.delete("/notes/:noteId", notes.delete);
+
+module.exports = router;
