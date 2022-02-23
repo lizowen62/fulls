@@ -1,4 +1,6 @@
+require("dotenv").config();
 var createError = require("http-errors");
+const mongoose = require("mongoose");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -9,6 +11,22 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 // CHIEN POULE OEUF CHAT CHIEN jik
+
+// connection database
+
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Successfully connected to database");
+  })
+  .catch((error) => {
+    console.log("database connection failed. exiting now...");
+    console.error(error);
+    process.exit(1);
+  });
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -29,6 +47,8 @@ const spec = swaggerDoc(options);
 var app = express();
 
 app.use("/docs", swagger.serve, swagger.setup(spec));
+
+console.log(process.env.API_PORT);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
