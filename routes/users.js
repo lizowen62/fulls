@@ -1,5 +1,17 @@
 var express = require("express");
+const users = require("../controller/user.controller.js");
+const verifyToken = require("../middleware/auth.js");
 var router = express.Router();
+
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Retrieve a list of JSONPlaceholder users
+ *     description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
+ */
+
+router.post("/create", verifyToken, users.create);
 
 /**
  * @swagger
@@ -9,10 +21,7 @@ var router = express.Router();
  *     description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
  */
 
-router.get("/", function (req, res) {
-  console.log(req);
-  res.send("respond with a resource");
-});
+router.get("/users", verifyToken, users.findAll);
 
 /**
  * @swagger
@@ -41,8 +50,12 @@ router.get("/", function (req, res) {
  *                       example: Leanne Graham
  */
 
-router.get("/:id", function (req, res) {
-  res.send("respond with a resource");
-});
+router.get("/users/:userId", verifyToken, users.findOne);
+
+// Update a Note with noteId
+router.put("/users/:userId", verifyToken, users.update);
+
+// Delete a Note with noteId
+router.delete("/users/:userId", verifyToken, users.delete);
 
 module.exports = router;
