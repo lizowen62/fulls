@@ -1,10 +1,12 @@
 require("dotenv").config();
 var createError = require("http-errors");
 const mongoose = require("mongoose");
+var cors = require("cors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var helmet = require("helmet");
 var swagger = require("swagger-ui-express");
 var swaggerDoc = require("swagger-jsdoc");
 var indexRouter = require("./routes/index");
@@ -48,6 +50,12 @@ const options = {
 const spec = swaggerDoc(options);
 
 var app = express();
+
+app.use(helmet());
+
+app.use(cookieParser());
+
+app.use(cors()); // dev
 
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -13,6 +13,7 @@ exports.create = (req, res) => {
   const note = new Note({
     title: req.body.title || "Untitled Note",
     content: req.body.content,
+    create_by: req.body,
   });
 
   // Save Note in the database
@@ -44,6 +45,38 @@ exports.findAll = (req, res) => {
 // Find a single note with a noteId
 exports.findOne = (req, res) => {
   Note.findById(req.params.noteId)
+    .then((note) => {
+      if (!note) {
+        return res.status(404).send({
+          message: "Note not found with id " + req.params.noteId,
+        });
+      }
+      res.send(note);
+    })
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Note not found with id " + req.params.noteId,
+        });
+      }
+      return res.status(500).send({
+        message: "Error retrieving note with id " + req.params.noteId,
+      });
+    });
+};
+
+// Find a single note with a noteId
+exports.findAggregate = (req, res) => {
+  Note.aggregate([
+    // Stage 1: Filter pizza order documents by pizza size
+    {
+      $match: { content: "contenue" },
+    },
+    // Stage 2: Group remaining documents by pizza name and calculate total quantity
+    {
+      $group: { _id: "$title" },
+    },
+  ])
     .then((note) => {
       if (!note) {
         return res.status(404).send({
